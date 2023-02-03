@@ -1,24 +1,19 @@
-import { useEffect } from 'react';
-import Button from '../Button/Button';
+import React from 'react';
+import Button from "../Button/Button";
+import {useTelegram} from "../../hooks/useTelegram";
+import './Header.css';
 
 const Header = () => {
+    const {user, onClose} = useTelegram();
 
-	const tg = window.Telegram.WebApp;
-
-	useEffect(() => {
-		tg.ready();
-	}, [])
-
-	const onClose = () => {
-		tg.close();
-	}
-
-	return (
-		<header className="header">
-			<Button onClick={onClose} />
-			<p className="header__username">{tg.initDataUnsafe?.user?.usename}</p>
-		</header>
-	)
-}
+    return (
+        <div className={'header'}>
+            <Button onClick={onClose}>Закрыть</Button>
+            <span className={'username'}>
+                {user?.username}
+            </span>
+        </div>
+    );
+};
 
 export default Header;
