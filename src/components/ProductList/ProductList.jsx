@@ -47,6 +47,14 @@ const ProductList = () => {
         }
     }, [onSendData])
 
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('info'));
+        if(data) console.log(data);
+        localStorage.setItem('info', JSON.stringify({
+			token: '123', user_id: 555, user_name: 'lesha'
+		}))
+    }, [])
+
     const onAdd = (product) => {
         const alreadyAdded = addedItems.find(item => item.id === product.id);
         let newItems = [];
