@@ -23,6 +23,7 @@ const getTotalPrice = (items = []) => {
 
 const ProductList = () => {
     const [addedItems, setAddedItems] = useState([]);
+    const [info, setInfo] = useState({});
     const {tg, queryId} = useTelegram();
 
     const onSendData = useCallback(() => {
@@ -49,10 +50,12 @@ const ProductList = () => {
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('info'));
-        if(data) console.log(data);
+        if(data && data.token && data.user_id && data.user_name && data.date) {
+            setInfo(data);
+        }
         localStorage.setItem('info', JSON.stringify({
-			token: '123', user_id: 555, user_name: 'lesha'
-		}))
+			token: '123', user_id: 555, user_name: 'lesha', date: new Date()
+		}));
     }, [])
 
     const onAdd = (product) => {
@@ -79,6 +82,7 @@ const ProductList = () => {
 
     return (
         <div className={'list'}>
+            {Object.keys(info).length > 0 && <p>{info.user_id}, сегодня - {info.date}</p>}
             {products.map(item => (
                 <ProductItem
 					key={item.id}
