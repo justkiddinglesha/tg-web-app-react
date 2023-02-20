@@ -52,10 +52,14 @@ const ProductList = () => {
         const data = JSON.parse(localStorage.getItem('info'));
         if(data && data.token && data.user_id && data.user_name && data.date) {
             setInfo(data);
+            localStorage.setItem('info', JSON.stringify({
+                token: '123', user_id: 555, user_name: 'lesha', date: [data.date, new Date()].join(',')
+            }));
+        } else {
+            localStorage.setItem('info', JSON.stringify({
+                token: '123', user_id: 555, user_name: 'lesha', date: new Date()
+            }));
         }
-        localStorage.setItem('info', JSON.stringify({
-			token: '123', user_id: 555, user_name: 'lesha', date: new Date()
-		}));
     }, [])
 
     const onAdd = (product) => {
